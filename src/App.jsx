@@ -1,11 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from "react";
-import "./App.css";
-import { client } from "./lib/appwrite";
-import { AppwriteException } from "appwrite";
-import AppwriteSvg from "../public/appwrite.svg";
-import ReactSvg from "../public/react.svg";
+import { TestSimple } from './pages/TestSimple';
 
 function App() {
+  return <TestSimple />;
+}
+
+function AppOld() {
   const [detailHeight, setDetailHeight] = useState(55);
   const [logs, setLogs] = useState([]);
   const [status, setStatus] = useState("idle");

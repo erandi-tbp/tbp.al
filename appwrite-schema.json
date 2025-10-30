@@ -1,0 +1,134 @@
+{
+  "database": {
+    "name": "tbp-agency",
+    "id": "tbp-agency"
+  },
+  "collections": [
+    {
+      "name": "Service Groups",
+      "id": "serviceGroups",
+      "attributes": [
+        {"key": "name", "type": "string", "size": 255, "required": true},
+        {"key": "slug", "type": "string", "size": 255, "required": true},
+        {"key": "description", "type": "string", "size": 1000, "required": false},
+        {"key": "order", "type": "integer", "required": true, "default": 0},
+        {"key": "isActive", "type": "boolean", "required": true, "default": true}
+      ],
+      "indexes": [
+        {"key": "slug", "type": "unique", "attributes": ["slug"]}
+      ]
+    },
+    {
+      "name": "Services",
+      "id": "services",
+      "attributes": [
+        {"key": "name", "type": "string", "size": 255, "required": true},
+        {"key": "slug", "type": "string", "size": 255, "required": true},
+        {"key": "description", "type": "string", "size": 2000, "required": false},
+        {"key": "serviceGroupId", "type": "string", "size": 255, "required": true},
+        {"key": "features", "type": "string", "size": 10000, "required": false},
+        {"key": "order", "type": "integer", "required": true, "default": 0},
+        {"key": "isActive", "type": "boolean", "required": true, "default": true}
+      ],
+      "indexes": [
+        {"key": "slug", "type": "unique", "attributes": ["slug"]},
+        {"key": "serviceGroupId", "type": "key", "attributes": ["serviceGroupId"]}
+      ]
+    },
+    {
+      "name": "Projects",
+      "id": "projects",
+      "attributes": [
+        {"key": "title", "type": "string", "size": 255, "required": true},
+        {"key": "slug", "type": "string", "size": 255, "required": true},
+        {"key": "description", "type": "string", "size": 2000, "required": false},
+        {"key": "clientName", "type": "string", "size": 255, "required": false},
+        {"key": "serviceGroupIds", "type": "string", "size": 1000, "required": true},
+        {"key": "featuredImage", "type": "string", "size": 255, "required": false},
+        {"key": "gallery", "type": "string", "size": 5000, "required": false},
+        {"key": "completedDate", "type": "datetime", "required": false},
+        {"key": "isPublished", "type": "boolean", "required": true, "default": false},
+        {"key": "order", "type": "integer", "required": true, "default": 0}
+      ],
+      "indexes": [
+        {"key": "slug", "type": "unique", "attributes": ["slug"]}
+      ]
+    },
+    {
+      "name": "Case Studies",
+      "id": "caseStudies",
+      "attributes": [
+        {"key": "title", "type": "string", "size": 255, "required": true},
+        {"key": "slug", "type": "string", "size": 255, "required": true},
+        {"key": "description", "type": "string", "size": 2000, "required": false},
+        {"key": "projectId", "type": "string", "size": 255, "required": true},
+        {"key": "serviceGroupId", "type": "string", "size": 255, "required": true},
+        {"key": "templateData", "type": "string", "size": 65535, "required": false},
+        {"key": "featuredImage", "type": "string", "size": 255, "required": false},
+        {"key": "publishDate", "type": "datetime", "required": false},
+        {"key": "isPublished", "type": "boolean", "required": true, "default": false}
+      ],
+      "indexes": [
+        {"key": "slug", "type": "unique", "attributes": ["slug"]},
+        {"key": "projectId", "type": "key", "attributes": ["projectId"]},
+        {"key": "serviceGroupId", "type": "key", "attributes": ["serviceGroupId"]}
+      ]
+    },
+    {
+      "name": "Testimonials",
+      "id": "testimonials",
+      "attributes": [
+        {"key": "clientName", "type": "string", "size": 255, "required": true},
+        {"key": "clientRole", "type": "string", "size": 255, "required": false},
+        {"key": "clientCompany", "type": "string", "size": 255, "required": false},
+        {"key": "testimonial", "type": "string", "size": 5000, "required": true},
+        {"key": "rating", "type": "integer", "required": true},
+        {"key": "avatar", "type": "string", "size": 255, "required": false},
+        {"key": "relatedType", "type": "string", "size": 50, "required": false},
+        {"key": "relatedId", "type": "string", "size": 255, "required": false},
+        {"key": "isApproved", "type": "boolean", "required": true, "default": false},
+        {"key": "createdAt", "type": "datetime", "required": true}
+      ],
+      "indexes": [
+        {"key": "relatedId", "type": "key", "attributes": ["relatedId"]}
+      ]
+    },
+    {
+      "name": "SEO Metadata",
+      "id": "seoMetadata",
+      "attributes": [
+        {"key": "entityType", "type": "string", "size": 50, "required": true},
+        {"key": "entityId", "type": "string", "size": 255, "required": true},
+        {"key": "metaTitle", "type": "string", "size": 255, "required": false},
+        {"key": "metaDescription", "type": "string", "size": 500, "required": false},
+        {"key": "metaKeywords", "type": "string", "size": 1000, "required": false},
+        {"key": "ogTitle", "type": "string", "size": 255, "required": false},
+        {"key": "ogDescription", "type": "string", "size": 500, "required": false},
+        {"key": "ogImage", "type": "string", "size": 255, "required": false},
+        {"key": "twitterCard", "type": "string", "size": 50, "required": false},
+        {"key": "canonicalUrl", "type": "string", "size": 500, "required": false},
+        {"key": "noIndex", "type": "boolean", "required": true, "default": false},
+        {"key": "noFollow", "type": "boolean", "required": true, "default": false}
+      ],
+      "indexes": [
+        {"key": "entityId", "type": "key", "attributes": ["entityId"]},
+        {"key": "entity_composite", "type": "key", "attributes": ["entityType", "entityId"]}
+      ]
+    },
+    {
+      "name": "Pages",
+      "id": "pages",
+      "attributes": [
+        {"key": "title", "type": "string", "size": 255, "required": true},
+        {"key": "slug", "type": "string", "size": 255, "required": true},
+        {"key": "content", "type": "string", "size": 65535, "required": false},
+        {"key": "template", "type": "string", "size": 50, "required": false},
+        {"key": "isPublished", "type": "boolean", "required": true, "default": false},
+        {"key": "order", "type": "integer", "required": true, "default": 0}
+      ],
+      "indexes": [
+        {"key": "slug", "type": "unique", "attributes": ["slug"]}
+      ]
+    }
+  ]
+}

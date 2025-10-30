@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  /* Font Families */
+  --font-family-heading: Rubik, sans-serif;
+  --font-family-body: Outfit, sans-serif;
+
+  /* Custom font utilities */
+  --font-heading: var(--font-family-heading);
+  --font-body: var(--font-family-body);
+}
+
+/* Root CSS Variables - Light Mode */
+:root {
+  --color-accent: #d95240;
+  --color-text-primary: #242d47;
+  --color-text-secondary: #242d47;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9f9f9;
+}
+
+/* Dark Mode */
+.dark {
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #f9f9f9;
+  --color-bg-primary: #000111;
+  --color-bg-secondary: #26272B;
+}
+
+/* Tailwind v4 custom utilities */
+@utility bg-bg-primary {
+  background-color: var(--color-bg-primary);
+}
+
+@utility bg-bg-secondary {
+  background-color: var(--color-bg-secondary);
+}
+
+@utility text-text-primary {
+  color: var(--color-text-primary);
+}
+
+@utility text-text-secondary {
+  color: var(--color-text-secondary);
+}
+
+@utility bg-accent {
+  background-color: var(--color-accent);
+}
+
+@utility text-accent {
+  color: var(--color-accent);
+}
+
+@utility border-text-primary {
+  border-color: var(--color-text-primary);
+}
+
+@utility border-accent {
+  border-color: var(--color-accent);
+}
+
+@utility font-heading {
+  font-family: Rubik, sans-serif;
+}
+
+@utility font-body {
+  font-family: Outfit, sans-serif;
+}

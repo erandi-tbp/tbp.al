@@ -7,14 +7,18 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "setup:db": "node scripts/setup-database.js"
   },
   "dependencies": {
     "@appwrite.io/pink-icons": "^1.0.0",
+    "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.0.14",
     "appwrite": "^17.0.0",
+    "dotenv": "^17.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^7.9.5",
     "tailwindcss": "^4.0.14"
   },
   "devDependencies": {
@@ -27,6 +31,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
+    "node-appwrite": "^20.2.1",
     "prettier": "3.5.3",
     "vite": "^6.1.0"
   }
