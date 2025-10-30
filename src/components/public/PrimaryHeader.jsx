@@ -137,7 +137,7 @@ export const DesktopHeader = () => {
               Home
             </Link>
             <Link
-              to="/services"
+              to="/service-groups"
               className="font-body text-text-primary hover:text-accent transition-colors"
             >
               Services
@@ -245,7 +245,7 @@ export const MobileHeader = () => {
                 Home
               </Link>
               <Link
-                to="/services"
+                to="/service-groups"
                 className="font-body text-text-primary hover:text-accent transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
