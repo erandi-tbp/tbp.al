@@ -1,7 +1,8 @@
 import { databases } from '../lib/appwrite';
 import { Query, ID } from 'appwrite';
+import { appwriteConfig } from '../config/appwrite';
 
-const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+const DATABASE_ID = appwriteConfig.databaseId;
 
 /**
  * Meta Helper - Manage metadata for any entity

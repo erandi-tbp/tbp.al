@@ -1,0 +1,423 @@
+ Error getting all settings: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Ss (index-ByuaBqAZ.js:61:80702)
+    at f (index-ByuaBqAZ.js:61:81892)
+    at index-ByuaBqAZ.js:61:81987
+    at nl (index-ByuaBqAZ.js:48:82208)
+Ss @ index-ByuaBqAZ.js:61
+fra.cloud.appwrite.io/v1/account:1  Failed to load resource: the server responded with a status of 401 ()
+ Appwrite is using localStorage for session management. Increase your security by adding a custom domain as your API endpoint.
+(anonymous) @ index-ByuaBqAZ.js:61
+ Error loading dashboard stats: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at d (index-ByuaBqAZ.js:61:196418)
+    at index-ByuaBqAZ.js:61:196328
+    at nl (index-ByuaBqAZ.js:48:82208)
+    at Im (index-ByuaBqAZ.js:48:96986)
+d @ index-ByuaBqAZ.js:61
+ Error getting all settings: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Ss (index-ByuaBqAZ.js:61:80702)
+    at Re (index-ByuaBqAZ.js:69:94559)
+    at index-ByuaBqAZ.js:69:94505
+    at nl (index-ByuaBqAZ.js:48:82208)
+Ss @ index-ByuaBqAZ.js:61
+ Error setting logoLight: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96095)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting logoDark: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96115)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting favicon: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96134)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting websiteName: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96151)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting siteTagline: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96173)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting taxId: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96195)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting email: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96211)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting phone: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96226)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting addressStreet: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96241)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting addressCity: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96265)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting addressCountry: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96287)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting addressZip: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96312)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting maintenanceEnabled: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96334)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting maintenanceMessage: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96375)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting maintenanceContacts: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96405)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error saving settings: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96095)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+ln @ index-ByuaBqAZ.js:69
+ Error setting logoLight: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96095)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting logoDark: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96115)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting favicon: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96134)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting websiteName: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96151)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting siteTagline: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96173)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting taxId: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96195)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting email: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96211)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting phone: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96226)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting addressStreet: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96241)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting addressCity: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96265)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting addressCountry: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96287)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting addressZip: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96312)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting maintenanceEnabled: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96334)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting maintenanceMessage: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96375)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error setting maintenanceContacts: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96405)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+Qt @ index-ByuaBqAZ.js:61
+ Error saving settings: AppwriteException: Missing required parameter: "databaseId"
+    at hj.<anonymous> (index-ByuaBqAZ.js:61:65987)
+    at Generator.next (<anonymous>)
+    at index-ByuaBqAZ.js:61:40578
+    at new Promise (<anonymous>)
+    at ge (index-ByuaBqAZ.js:61:40378)
+    at hj.listDocuments (index-ByuaBqAZ.js:61:65931)
+    at Qt (index-ByuaBqAZ.js:61:80934)
+    at ln (index-ByuaBqAZ.js:69:96095)
+    at ph (index-ByuaBqAZ.js:48:124419)
+    at index-ByuaBqAZ.js:48:129599
+ln @ index-ByuaBqAZ.js:69
