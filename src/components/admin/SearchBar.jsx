@@ -217,7 +217,7 @@ export const SearchBar = () => {
       {/* Search Trigger */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex-1 max-w-2xl flex items-center gap-3 px-4 py-2 bg-bg-secondary border border-text-primary/20 rounded-lg hover:border-accent transition-colors"
+        className="w-full flex items-center gap-3 px-4 py-2 bg-bg-secondary border border-text-primary/20 rounded-lg hover:border-accent transition-colors"
       >
         <MagnifyingGlassIcon className="w-5 h-5 text-text-secondary" />
         <span className="flex-1 text-left text-text-secondary font-body">
