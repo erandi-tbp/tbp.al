@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { HomePage } from '../pages/public/HomePage';
 import { MaintenancePage } from '../pages/public/MaintenancePage';
+import { AboutPage } from '../pages/public/AboutPage';
+import { ContactPage } from '../pages/public/ContactPage';
 // Services
 import { ServicesArchive } from '../pages/public/services/ServicesArchive';
 import { SingleService } from '../pages/public/services/SingleService';
@@ -142,6 +144,24 @@ export const router = createBrowserRouter([
     element: (
       <MaintenanceCheck>
         <SingleCaseStudy />
+      </MaintenanceCheck>
+    )
+  },
+
+  // About and Contact routes
+  {
+    path: '/about',
+    element: (
+      <MaintenanceCheck>
+        <AboutPage />
+      </MaintenanceCheck>
+    )
+  },
+  {
+    path: '/contact',
+    element: (
+      <MaintenanceCheck>
+        <ContactPage />
       </MaintenanceCheck>
     )
   },

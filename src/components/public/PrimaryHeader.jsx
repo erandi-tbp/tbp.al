@@ -1,11 +1,88 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { ThemeToggle } from '../common/ThemeToggle';
+import { Bars3Icon, XMarkIcon, SunIcon, MoonIcon, ComputerDesktopIcon, CheckIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useTheme } from '../../contexts/ThemeContext';
 import { getAllSettings, SETTING_KEYS } from '../../helpers/settingsHelper';
 
 const BUCKET_ID = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
+
+/**
+ * ThemeDropdown Component for Public Header
+ */
+const ThemeDropdown = () => {
+  const { themeMode, setTheme } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isOpen]);
+
+  const handleThemeChange = (mode) => {
+    setTheme(mode);
+    setIsOpen(false);
+  };
+
+  const themeOptions = [
+    { value: 'light', label: 'Light', Icon: SunIcon },
+    { value: 'dark', label: 'Dark', Icon: MoonIcon },
+    { value: 'system', label: 'System', Icon: ComputerDesktopIcon }
+  ];
+
+  const currentTheme = themeOptions.find(t => t.value === themeMode);
+  const CurrentIcon = currentTheme.Icon;
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-bg-primary transition-colors"
+        aria-label="Toggle theme"
+      >
+        <CurrentIcon className="w-5 h-5 text-text-primary" />
+        <ChevronDownIcon className="w-4 h-4 text-text-primary" />
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-bg-secondary border border-border rounded-lg shadow-xl overflow-hidden z-50">
+          <div className="py-1">
+            {themeOptions.map((option) => {
+              const Icon = option.Icon;
+              const isActive = themeMode === option.value;
+
+              return (
+                <button
+                  key={option.value}
+                  onClick={() => handleThemeChange(option.value)}
+                  className={`w-full px-4 py-2.5 text-left hover:bg-bg-primary transition-colors flex items-center justify-between gap-3 ${
+                    isActive ? 'text-accent' : 'text-text-primary'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <Icon className="w-5 h-5" />
+                    <span className={`font-body ${isActive ? 'font-bold' : ''}`}>
+                      {option.label}
+                    </span>
+                  </div>
+                  {isActive && <CheckIcon className="w-4 h-4" />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 /**
  * DesktopHeader - Header for desktop viewport
@@ -85,11 +162,11 @@ export const DesktopHeader = () => {
             </Link>
             <Link
               to="/contact"
-              className="px-6 py-2 bg-accent text-white font-body font-bold rounded-lg hover:bg-accent/90 transition-colors"
+              className="font-body text-text-primary hover:text-accent transition-colors"
             >
               Contact
             </Link>
-            <ThemeToggle />
+            <ThemeDropdown />
           </nav>
         </div>
       </div>
@@ -197,13 +274,13 @@ export const MobileHeader = () => {
               </Link>
               <Link
                 to="/contact"
-                className="inline-block text-center px-6 py-3 bg-accent text-white font-body font-bold rounded-lg hover:bg-accent/90 transition-colors mt-2"
+                className="font-body text-text-primary hover:text-accent transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact
               </Link>
               <div className="pt-2 border-t border-border mt-2">
-                <ThemeToggle />
+                <ThemeDropdown />
               </div>
             </div>
           </nav>
