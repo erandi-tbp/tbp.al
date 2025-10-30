@@ -3,6 +3,7 @@ import { HomePage } from '../pages/public/HomePage';
 import { AdminLogin } from '../pages/admin/AdminLogin';
 import { AdminDashboard } from '../pages/admin/AdminDashboard';
 import { SettingsPage } from '../pages/admin/SettingsPage';
+import { GeneralSettingsPage } from '../pages/admin/GeneralSettingsPage';
 import { AdminLayout } from '../components/layout/AdminLayout';
 import { ProtectedRoute } from '../components/admin/ProtectedRoute';
 import { AdminRedirect } from '../components/admin/AdminRedirect';
@@ -125,6 +126,10 @@ export const router = createBrowserRouter([
       {
         path: 'settings',
         element: <SettingsPage />
+      },
+      {
+        path: 'settings/general',
+        element: <GeneralSettingsPage />
       }
     ]
   }

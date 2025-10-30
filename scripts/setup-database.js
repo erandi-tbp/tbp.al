@@ -223,10 +223,41 @@ async function setupDatabase() {
     await databases.createIndex(DATABASE_ID, 'pages', 'slug_unique', 'unique', ['slug']);
     console.log('✅ Pages collection created\n');
 
+    // Create Settings Collection
+    console.log('📝 Creating Settings collection...');
+    await databases.createCollection(
+      DATABASE_ID,
+      'settings',
+      'Settings',
+      [
+        Permission.read(Role.any()),
+        Permission.create(Role.users()),
+        Permission.update(Role.users()),
+        Permission.delete(Role.users())
+      ]
+    );
+
+    // Branding
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'logoLight', 255, false);
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'logoDark', 255, false);
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'favicon', 255, false);
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'websiteName', 255, false);
+
+    // General Information
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'taxId', 100, false);
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'email', 255, false);
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'phone', 50, false);
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'addressStreet', 255, false);
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'addressCity', 100, false);
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'addressCountry', 100, false);
+    await databases.createStringAttribute(DATABASE_ID, 'settings', 'addressZip', 20, false);
+
+    console.log('✅ Settings collection created\n');
+
     console.log('🎉 Database setup completed successfully!');
     console.log('\n📋 Summary:');
     console.log('   - Database: tbp-agency');
-    console.log('   - Collections: 7');
+    console.log('   - Collections: 8');
     console.log('   - Service Groups');
     console.log('   - Services');
     console.log('   - Projects');
@@ -234,6 +265,7 @@ async function setupDatabase() {
     console.log('   - Testimonials');
     console.log('   - SEO Metadata');
     console.log('   - Pages');
+    console.log('   - Settings');
 
   } catch (error) {
     console.error('❌ Error during setup:', error.message);

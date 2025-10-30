@@ -1,6 +1,8 @@
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSettings } from '../../hooks/useSettings';
+import { useTheme } from '../../contexts/ThemeContext';
 import {
   ChartBarIcon,
   Cog6ToothIcon,
@@ -17,6 +19,8 @@ import {
 
 export const AdminSidebar = () => {
   const { user, logout } = useAuth();
+  const { getLogoUrl, settings } = useSettings();
+  const { isDark } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -112,10 +116,26 @@ export const AdminSidebar = () => {
     <aside className="w-64 bg-bg-secondary border-r border-text-primary/10 flex flex-col">
       {/* Logo */}
       <div className="p-6 border-b border-text-primary/10">
-        <h1 className="text-2xl font-heading font-bold text-text-primary">
-          TBP.AL
+        {getLogoUrl(isDark) ? (
+          <img
+            src={getLogoUrl(isDark)}
+            alt={settings?.websiteName || 'Logo'}
+            className="h-12 w-auto object-contain max-w-full"
+            onError={(e) => {
+              // Hide broken image and show text fallback
+              e.target.style.display = 'none';
+              const fallback = e.target.nextElementSibling;
+              if (fallback) fallback.style.display = 'block';
+            }}
+          />
+        ) : null}
+        <h1
+          className="text-2xl font-heading font-bold text-text-primary"
+          style={{ display: getLogoUrl(isDark) ? 'none' : 'block' }}
+        >
+          {settings?.websiteName || 'TBP.AL'}
         </h1>
-        <p className="text-sm text-text-secondary font-body mt-1">
+        <p className="text-sm text-text-secondary font-body mt-2">
           Admin Panel
         </p>
       </div>

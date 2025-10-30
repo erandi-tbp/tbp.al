@@ -2,3 +2,4 @@
 - We will develop each section step by step all the way for this website
 - remember this site will be build using components (configurable components) to maintain consistency
 - I will keep the npm run dev running in another terminal so you don't have to do npm run build or anything
+- Make pushes only when i tell you to, not always!
