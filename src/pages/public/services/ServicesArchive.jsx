@@ -5,6 +5,7 @@ import { Query } from 'appwrite';
 import { SEO } from '../../../components/common/SEO';
 import { DesktopHeader, MobileHeader } from '../../../components/public/PrimaryHeader';
 import { PrimaryFooter } from '../../../components/public/PrimaryFooter';
+import { appwriteConfig } from '../../../config/appwrite';
 
 export const ServicesArchive = () => {
   const [services, setServices] = useState([]);
@@ -22,7 +23,7 @@ export const ServicesArchive = () => {
 
       // Load service groups
       const groupsResponse = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'serviceGroups',
         [Query.equal('isActive', true), Query.orderAsc('name')]
       );
@@ -30,7 +31,7 @@ export const ServicesArchive = () => {
 
       // Load services
       const servicesResponse = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'services',
         [Query.equal('isActive', true), Query.orderAsc('name')]
       );
@@ -46,7 +47,7 @@ export const ServicesArchive = () => {
     ? services
     : services.filter(service => service.serviceGroupId === selectedGroup);
 
-  const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
+  const bucketId = appwriteConfig.bucketSettings;
 
   if (loading) {
     return (
@@ -139,7 +140,7 @@ export const ServicesArchive = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredServices.map(service => {
                   const featuredImageUrl = service.featuredImage
-                    ? `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${service.featuredImage}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`
+                    ? `${appwriteConfig.endpoint}/storage/buckets/${bucketId}/files/${service.featuredImage}/view?project=${appwriteConfig.projectId}`
                     : null;
 
                   return (

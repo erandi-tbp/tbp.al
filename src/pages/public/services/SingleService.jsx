@@ -7,6 +7,7 @@ import { getAllMeta, META_COLLECTIONS } from '../../../helpers/metaHelper';
 import { SEO } from '../../../components/common/SEO';
 import { DesktopHeader, MobileHeader } from '../../../components/public/PrimaryHeader';
 import { PrimaryFooter } from '../../../components/public/PrimaryFooter';
+import { appwriteConfig } from '../../../config/appwrite';
 
 export const SingleService = () => {
   const { slug } = useParams();
@@ -25,7 +26,7 @@ export const SingleService = () => {
 
       // Get service by slug
       const servicesResponse = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'services',
         [Query.equal('slug', slug), Query.limit(1)]
       );
@@ -55,7 +56,7 @@ export const SingleService = () => {
       if (serviceData.serviceGroupId) {
         try {
           const groupDoc = await databases.getDocument(
-            import.meta.env.VITE_APPWRITE_DATABASE_ID,
+            appwriteConfig.databaseId,
             'serviceGroups',
             serviceData.serviceGroupId
           );
@@ -84,9 +85,9 @@ export const SingleService = () => {
     return null;
   }
 
-  const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
+  const bucketId = appwriteConfig.bucketSettings;
   const featuredImageUrl = service.featuredImage
-    ? `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${service.featuredImage}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`
+    ? `${appwriteConfig.endpoint}/storage/buckets/${bucketId}/files/${service.featuredImage}/view?project=${appwriteConfig.projectId}`
     : null;
 
   return (

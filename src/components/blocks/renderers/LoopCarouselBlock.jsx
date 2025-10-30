@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { databases } from '../../../lib/appwrite';
 import { Query } from 'appwrite';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { appwriteConfig } from '../../../config/appwrite';
 
 /**
  * LoopCarouselBlock - Renders a carousel of related content (services, projects, case studies)
@@ -59,7 +60,7 @@ export const LoopCarouselBlock = ({ data, context = {} }) => {
       }
 
       const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         entityType,
         queries
       );
@@ -89,8 +90,7 @@ export const LoopCarouselBlock = ({ data, context = {} }) => {
   const getImageUrl = (item) => {
     const imageId = item.featuredImage;
     if (!imageId) return null;
-    const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
-    return `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${imageId}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`;
+    return `${appwriteConfig.endpoint}/storage/buckets/${appwriteConfig.bucketSettings}/files/${imageId}/view?project=${appwriteConfig.projectId}`;
   };
 
   const nextSlide = () => {

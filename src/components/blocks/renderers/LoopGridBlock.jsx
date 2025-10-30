@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { databases } from '../../../lib/appwrite';
 import { Query } from 'appwrite';
+import { appwriteConfig } from '../../../config/appwrite';
 
 /**
  * LoopGridBlock - Renders a grid of related content (services, projects, case studies)
@@ -47,7 +48,7 @@ export const LoopGridBlock = ({ data, context = {} }) => {
       }
 
       const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         entityType,
         queries
       );
@@ -77,8 +78,7 @@ export const LoopGridBlock = ({ data, context = {} }) => {
   const getImageUrl = (item) => {
     const imageId = item.featuredImage;
     if (!imageId) return null;
-    const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
-    return `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${imageId}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`;
+    return `${appwriteConfig.endpoint}/storage/buckets/${appwriteConfig.bucketSettings}/files/${imageId}/view?project=${appwriteConfig.projectId}`;
   };
 
   const gridCols = {

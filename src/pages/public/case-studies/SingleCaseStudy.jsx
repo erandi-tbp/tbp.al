@@ -7,6 +7,7 @@ import { getAllMeta, META_COLLECTIONS } from '../../../helpers/metaHelper';
 import { SEO } from '../../../components/common/SEO';
 import { DesktopHeader, MobileHeader } from '../../../components/public/PrimaryHeader';
 import { PrimaryFooter } from '../../../components/public/PrimaryFooter';
+import { appwriteConfig } from '../../../config/appwrite';
 
 export const SingleCaseStudy = () => {
   const { slug } = useParams();
@@ -26,7 +27,7 @@ export const SingleCaseStudy = () => {
 
       // Get case study by slug
       const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'caseStudies',
         [Query.equal('slug', slug), Query.limit(1)]
       );
@@ -56,7 +57,7 @@ export const SingleCaseStudy = () => {
       if (caseStudyDoc.serviceGroupId) {
         try {
           const groupDoc = await databases.getDocument(
-            import.meta.env.VITE_APPWRITE_DATABASE_ID,
+            appwriteConfig.databaseId,
             'serviceGroups',
             caseStudyDoc.serviceGroupId
           );
@@ -70,7 +71,7 @@ export const SingleCaseStudy = () => {
       if (meta.project_id) {
         try {
           const projectDoc = await databases.getDocument(
-            import.meta.env.VITE_APPWRITE_DATABASE_ID,
+            appwriteConfig.databaseId,
             'projects',
             meta.project_id
           );

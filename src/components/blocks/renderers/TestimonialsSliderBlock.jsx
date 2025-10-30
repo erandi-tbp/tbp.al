@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { databases } from '../../../lib/appwrite';
 import { Query } from 'appwrite';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { appwriteConfig } from '../../../config/appwrite';
 
 /**
  * TestimonialsSliderBlock - Renders testimonials in a slider
@@ -20,7 +21,7 @@ export const TestimonialsSliderBlock = ({ data }) => {
     try {
       setLoading(true);
       const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'testimonials',
         [
           Query.equal('isApproved', true),
@@ -82,7 +83,7 @@ export const TestimonialsSliderBlock = ({ data }) => {
             <div className="flex items-center gap-4">
               {currentTestimonial.avatar && (
                 <img
-                  src={`${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS}/files/${currentTestimonial.avatar}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`}
+                  src={`${appwriteConfig.endpoint}/storage/buckets/${appwriteConfig.bucketSettings}/files/${currentTestimonial.avatar}/view?project=${appwriteConfig.projectId}`}
                   alt={currentTestimonial.clientName}
                   className="w-16 h-16 rounded-full object-cover"
                 />

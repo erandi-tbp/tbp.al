@@ -5,6 +5,7 @@ import { Query } from 'appwrite';
 import { SEO } from '../../../components/common/SEO';
 import { DesktopHeader, MobileHeader } from '../../../components/public/PrimaryHeader';
 import { PrimaryFooter } from '../../../components/public/PrimaryFooter';
+import { appwriteConfig } from '../../../config/appwrite';
 
 export const ServiceGroupsArchive = () => {
   const [serviceGroups, setServiceGroups] = useState([]);
@@ -18,7 +19,7 @@ export const ServiceGroupsArchive = () => {
     try {
       setLoading(true);
       const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'serviceGroups',
         [Query.equal('isActive', true), Query.orderAsc('name')]
       );
@@ -30,7 +31,7 @@ export const ServiceGroupsArchive = () => {
     }
   };
 
-  const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
+  const bucketId = appwriteConfig.bucketSettings;
 
   if (loading) {
     return (
@@ -90,7 +91,7 @@ export const ServiceGroupsArchive = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {serviceGroups.map(group => {
                   const iconUrl = group.icon
-                    ? `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${group.icon}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`
+                    ? `${appwriteConfig.endpoint}/storage/buckets/${bucketId}/files/${group.icon}/view?project=${appwriteConfig.projectId}`
                     : null;
 
                   return (
