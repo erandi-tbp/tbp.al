@@ -93,9 +93,9 @@ export const UserAvatarDropdown = () => {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 bg-bg-secondary border border-text-primary/20 rounded-lg shadow-xl overflow-hidden z-50">
+        <div className="absolute right-0 mt-2 w-64 bg-bg-secondary border border-border rounded-lg shadow-xl overflow-hidden z-50">
           {/* User Info */}
-          <div className="px-4 py-3 border-b border-text-primary/10">
+          <div className="px-4 py-3 border-b border-border">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-body font-bold">
                 {getInitials()}
@@ -129,7 +129,7 @@ export const UserAvatarDropdown = () => {
           </div>
 
           {/* Logout */}
-          <div className="py-1 border-t border-text-primary/10">
+          <div className="py-1 border-t border-border">
             <button
               onClick={handleLogout}
               className="w-full px-4 py-2.5 text-left hover:bg-red-500/10 transition-colors flex items-center gap-3 text-red-500"

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { databases } from '../lib/appwrite';
+import { getAllSettings } from '../helpers/settingsHelper';
 
 export const SettingsContext = createContext();
 
@@ -9,14 +9,8 @@ export const SettingsProvider = ({ children }) => {
 
   const loadSettings = async () => {
     try {
-      const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        'settings'
-      );
-
-      if (response.documents.length > 0) {
-        setSettings(response.documents[0]);
-      }
+      const settingsData = await getAllSettings();
+      setSettings(settingsData);
     } catch (error) {
       console.error('Error loading settings:', error);
     } finally {

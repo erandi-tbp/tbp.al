@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { SEO } from '../../components/common/SEO';
+import { DesktopHeader, MobileHeader } from '../../components/public/PrimaryHeader';
+import { PrimaryFooter } from '../../components/public/PrimaryFooter';
 
 export const HomePage = () => {
   return (
@@ -9,6 +11,10 @@ export const HomePage = () => {
         description="Trusted Business Partners - Your Success, Our Commitment! Professional business services in Albania including Website Design, Development, Branding, and Digital Marketing."
         keywords="business services albania, web design, web development, branding, digital marketing, tbp albania"
       />
+
+      <DesktopHeader />
+      <MobileHeader />
+
       <div className="min-h-screen bg-bg-primary flex items-center justify-center px-4">
         <div className="text-center">
           <h1 className="text-5xl font-heading font-bold text-text-primary mb-4">
@@ -25,6 +31,8 @@ export const HomePage = () => {
           </Link>
         </div>
       </div>
+
+      <PrimaryFooter />
     </>
   );
 };

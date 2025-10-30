@@ -66,7 +66,7 @@ export const ThemeDropdown = () => {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-bg-secondary border border-text-primary/20 rounded-lg shadow-xl overflow-hidden z-50">
+        <div className="absolute right-0 mt-2 w-48 bg-bg-secondary border border-border rounded-lg shadow-xl overflow-hidden z-50">
           <div className="py-1">
             {themeOptions.map((option) => {
               const Icon = option.Icon;

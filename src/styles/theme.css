@@ -14,17 +14,22 @@
 :root {
   --color-accent: #d95240;
   --color-text-primary: #242d47;
-  --color-text-secondary: #242d47;
+  --color-text-secondary: #000111;
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f9f9f9;
+  --color-border: #dcdcdc;
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 /* Dark Mode */
 .dark {
   --color-text-primary: #ffffff;
-  --color-text-secondary: #f9f9f9;
-  --color-bg-primary: #000111;
-  --color-bg-secondary: #26272B;
+  --color-text-secondary: #a3a3a3;
+  --color-bg-primary: #131315;
+  --color-bg-secondary: #1d1c21;
+  --color-bg-tertiary: #19191b;
+  --color-border: #c3c7cb;
+  --shadow-hover: 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 /* Tailwind v4 custom utilities */
@@ -52,6 +57,10 @@
   color: var(--color-accent);
 }
 
+@utility border-border {
+  border-color: var(--color-border);
+}
+
 @utility border-text-primary {
   border-color: var(--color-text-primary);
 }
@@ -66,4 +75,14 @@
 
 @utility font-body {
   font-family: Outfit, sans-serif;
+}
+
+/* Hover lift effect - cannot use :hover in @utility, so using regular CSS */
+.hover-lift {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
 }

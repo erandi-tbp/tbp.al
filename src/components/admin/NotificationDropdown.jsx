@@ -27,7 +27,7 @@ const getRelativeTime = (isoString) => {
 
 export const NotificationDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotification();
+  const { notifications, unreadCount, markAsRead, markAllAsRead, clearAll } = useNotification();
   const dropdownRef = useRef(null);
 
   // Click outside to close
@@ -63,9 +63,9 @@ export const NotificationDropdown = () => {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-bg-secondary border border-text-primary/20 rounded-lg shadow-xl overflow-hidden z-50">
+        <div className="absolute right-0 mt-2 w-80 bg-bg-secondary border border-border rounded-lg shadow-xl overflow-hidden z-50">
           {/* Header */}
-          <div className="px-4 py-3 border-b border-text-primary/10 flex items-center justify-between">
+          <div className="px-4 py-3 border-b border-border flex items-center justify-between">
             <h3 className="font-body font-bold text-text-primary">
               Notifications
             </h3>
@@ -122,9 +122,15 @@ export const NotificationDropdown = () => {
 
           {/* Footer */}
           {notifications.length > 0 && (
-            <div className="px-4 py-3 border-t border-text-primary/10">
-              <button className="w-full text-center text-sm font-body text-accent hover:text-accent/80 transition-colors">
-                View all notifications
+            <div className="px-4 py-3 border-t border-border flex gap-2">
+              <button
+                onClick={clearAll}
+                className="flex-1 text-center text-sm font-body text-red-500 hover:text-red-600 transition-colors"
+              >
+                Clear all
+              </button>
+              <button className="flex-1 text-center text-sm font-body text-accent hover:text-accent/80 transition-colors">
+                View all
               </button>
             </div>
           )}

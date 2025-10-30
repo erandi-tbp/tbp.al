@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useNotification } from '../../hooks/useNotification';
-import { databases, storage } from '../../lib/appwrite';
+import { useNotification } from '../../../hooks/useNotification';
+import { storage } from '../../../lib/appwrite';
 import { ID } from 'appwrite';
-import { SEO } from '../../components/common/SEO';
+import { SEO } from '../../../components/common/SEO';
+import { getAllSettings, setSetting, SETTING_KEYS } from '../../../helpers/settingsHelper';
 import {
   PhotoIcon,
-  ArrowUpTrayIcon
+  ArrowUpTrayIcon,
+  PlusIcon,
+  TrashIcon
 } from '@heroicons/react/24/outline';
 
 const BUCKET_ID = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0'; // settings-assets bucket
@@ -15,7 +18,6 @@ export const GeneralSettingsPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [settingsId, setSettingsId] = useState(null);
 
   // Form state - Branding
   const [logoLight, setLogoLight] = useState('');
@@ -33,6 +35,11 @@ export const GeneralSettingsPage = () => {
   const [addressCountry, setAddressCountry] = useState('');
   const [addressZip, setAddressZip] = useState('');
 
+  // Form state - Maintenance Mode
+  const [maintenanceEnabled, setMaintenanceEnabled] = useState(false);
+  const [maintenanceMessage, setMaintenanceMessage] = useState('');
+  const [maintenanceContacts, setMaintenanceContacts] = useState([]);
+
   // Upload states
   const [uploadingLogoLight, setUploadingLogoLight] = useState(false);
   const [uploadingLogoDark, setUploadingLogoDark] = useState(false);
@@ -46,30 +53,40 @@ export const GeneralSettingsPage = () => {
   const loadSettings = async () => {
     setLoading(true);
     try {
-      const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        'settings'
-      );
+      const settings = await getAllSettings();
 
-      if (response.documents.length > 0) {
-        const settings = response.documents[0];
-        setSettingsId(settings.$id);
+      // Branding
+      setLogoLight(settings[SETTING_KEYS.LOGO_LIGHT] || '');
+      setLogoDark(settings[SETTING_KEYS.LOGO_DARK] || '');
+      setFavicon(settings[SETTING_KEYS.FAVICON] || '');
+      setWebsiteName(settings[SETTING_KEYS.WEBSITE_NAME] || '');
+      setSiteTagline(settings[SETTING_KEYS.SITE_TAGLINE] || '');
 
-        // Branding
-        setLogoLight(settings.logoLight || '');
-        setLogoDark(settings.logoDark || '');
-        setFavicon(settings.favicon || '');
-        setWebsiteName(settings.websiteName || '');
-        setSiteTagline(settings.siteTagline || '');
+      // General Information
+      setTaxId(settings[SETTING_KEYS.TAX_ID] || '');
+      setEmail(settings[SETTING_KEYS.EMAIL] || '');
+      setPhone(settings[SETTING_KEYS.PHONE] || '');
+      setAddressStreet(settings[SETTING_KEYS.ADDRESS_STREET] || '');
+      setAddressCity(settings[SETTING_KEYS.ADDRESS_CITY] || '');
+      setAddressCountry(settings[SETTING_KEYS.ADDRESS_COUNTRY] || '');
+      setAddressZip(settings[SETTING_KEYS.ADDRESS_ZIP] || '');
 
-        // General Information
-        setTaxId(settings.taxId || '');
-        setEmail(settings.email || '');
-        setPhone(settings.phone || '');
-        setAddressStreet(settings.addressStreet || '');
-        setAddressCity(settings.addressCity || '');
-        setAddressCountry(settings.addressCountry || '');
-        setAddressZip(settings.addressZip || '');
+      // Maintenance Mode
+      const maintenanceEnabledValue = settings[SETTING_KEYS.MAINTENANCE_ENABLED];
+      setMaintenanceEnabled(maintenanceEnabledValue === 'true' || maintenanceEnabledValue === true);
+      setMaintenanceMessage(settings[SETTING_KEYS.MAINTENANCE_MESSAGE] || '');
+
+      const contactsValue = settings[SETTING_KEYS.MAINTENANCE_CONTACTS];
+      if (typeof contactsValue === 'string') {
+        try {
+          setMaintenanceContacts(JSON.parse(contactsValue));
+        } catch {
+          setMaintenanceContacts([]);
+        }
+      } else if (Array.isArray(contactsValue)) {
+        setMaintenanceContacts(contactsValue);
+      } else {
+        setMaintenanceContacts([]);
       }
     } catch (error) {
       console.error('Error loading settings:', error);
@@ -138,47 +155,48 @@ export const GeneralSettingsPage = () => {
     setUploadingFavicon(false);
   };
 
+  const addContact = () => {
+    setMaintenanceContacts([...maintenanceContacts, { label: '', value: '' }]);
+  };
+
+  const removeContact = (index) => {
+    setMaintenanceContacts(maintenanceContacts.filter((_, i) => i !== index));
+  };
+
+  const updateContact = (index, field, value) => {
+    const updated = [...maintenanceContacts];
+    updated[index][field] = value;
+    setMaintenanceContacts(updated);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
 
     try {
-      const settingsData = {
+      // Save all settings using the helper
+      await Promise.all([
         // Branding
-        logoLight,
-        logoDark,
-        favicon,
-        websiteName,
-        siteTagline,
+        setSetting(SETTING_KEYS.LOGO_LIGHT, logoLight),
+        setSetting(SETTING_KEYS.LOGO_DARK, logoDark),
+        setSetting(SETTING_KEYS.FAVICON, favicon),
+        setSetting(SETTING_KEYS.WEBSITE_NAME, websiteName),
+        setSetting(SETTING_KEYS.SITE_TAGLINE, siteTagline),
 
         // General Information
-        taxId,
-        email,
-        phone,
-        addressStreet,
-        addressCity,
-        addressCountry,
-        addressZip
-      };
+        setSetting(SETTING_KEYS.TAX_ID, taxId),
+        setSetting(SETTING_KEYS.EMAIL, email),
+        setSetting(SETTING_KEYS.PHONE, phone),
+        setSetting(SETTING_KEYS.ADDRESS_STREET, addressStreet),
+        setSetting(SETTING_KEYS.ADDRESS_CITY, addressCity),
+        setSetting(SETTING_KEYS.ADDRESS_COUNTRY, addressCountry),
+        setSetting(SETTING_KEYS.ADDRESS_ZIP, addressZip),
 
-      if (settingsId) {
-        // Update existing settings
-        await databases.updateDocument(
-          import.meta.env.VITE_APPWRITE_DATABASE_ID,
-          'settings',
-          settingsId,
-          settingsData
-        );
-      } else {
-        // Create new settings document
-        const response = await databases.createDocument(
-          import.meta.env.VITE_APPWRITE_DATABASE_ID,
-          'settings',
-          ID.unique(),
-          settingsData
-        );
-        setSettingsId(response.$id);
-      }
+        // Maintenance Mode
+        setSetting(SETTING_KEYS.MAINTENANCE_ENABLED, maintenanceEnabled.toString()),
+        setSetting(SETTING_KEYS.MAINTENANCE_MESSAGE, maintenanceMessage),
+        setSetting(SETTING_KEYS.MAINTENANCE_CONTACTS, JSON.stringify(maintenanceContacts))
+      ]);
 
       addNotification('Success', 'Settings saved successfully');
     } catch (error) {
@@ -226,7 +244,7 @@ export const GeneralSettingsPage = () => {
         {/* Two Column Grid for Sections */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Branding Section */}
-          <div className="bg-bg-secondary border border-text-primary/10 rounded-lg p-6">
+          <div className="bg-bg-secondary border border-border rounded-lg p-6">
             <h2 className="text-xl font-heading font-bold text-text-primary mb-6">
               Branding
             </h2>
@@ -242,7 +260,7 @@ export const GeneralSettingsPage = () => {
                 value={websiteName}
                 onChange={(e) => setWebsiteName(e.target.value)}
                 placeholder="Trusted Business Partners"
-                className="w-full px-4 py-2 bg-bg-primary border border-text-primary/20 rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -256,7 +274,7 @@ export const GeneralSettingsPage = () => {
                 value={siteTagline}
                 onChange={(e) => setSiteTagline(e.target.value)}
                 placeholder="Your Success, Our Commitment!"
-                className="w-full px-4 py-2 bg-bg-primary border border-text-primary/20 rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -267,20 +285,16 @@ export const GeneralSettingsPage = () => {
               </label>
               <div className="flex items-center gap-4">
                 {logoLight && (
-                  <div className="w-32 h-32 bg-white border border-text-primary/10 rounded-lg flex items-center justify-center overflow-hidden p-2">
+                  <div className="w-32 h-32 bg-white border border-border rounded-lg flex items-center justify-center overflow-hidden p-2">
                     <img
-                      src={`${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${logoLight}/preview?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}&width=200&height=200`}
+                      src={`${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${logoLight}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`}
                       alt="Logo Light"
                       className="max-w-full max-h-full object-contain"
-                      onError={(e) => {
-                        // Fallback to view endpoint if preview fails (for SVGs)
-                        e.target.src = `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${logoLight}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`;
-                      }}
                     />
                   </div>
                 )}
                 <label className="flex-1 cursor-pointer">
-                  <div className="flex items-center justify-center gap-2 px-4 py-3 bg-bg-primary border border-text-primary/20 rounded-lg hover:border-accent transition-colors">
+                  <div className="flex items-center justify-center gap-2 px-4 py-3 bg-bg-primary border border-border rounded-lg hover:border-accent transition-colors">
                     {uploadingLogoLight ? (
                       <span className="text-text-secondary font-body">Uploading...</span>
                     ) : (
@@ -310,20 +324,16 @@ export const GeneralSettingsPage = () => {
               </label>
               <div className="flex items-center gap-4">
                 {logoDark && (
-                  <div className="w-32 h-32 bg-gray-900 border border-text-primary/10 rounded-lg flex items-center justify-center overflow-hidden p-2">
+                  <div className="w-32 h-32 bg-gray-900 border border-border rounded-lg flex items-center justify-center overflow-hidden p-2">
                     <img
-                      src={`${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${logoDark}/preview?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}&width=200&height=200`}
+                      src={`${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${logoDark}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`}
                       alt="Logo Dark"
                       className="max-w-full max-h-full object-contain"
-                      onError={(e) => {
-                        // Fallback to view endpoint if preview fails (for SVGs)
-                        e.target.src = `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${logoDark}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`;
-                      }}
                     />
                   </div>
                 )}
                 <label className="flex-1 cursor-pointer">
-                  <div className="flex items-center justify-center gap-2 px-4 py-3 bg-bg-primary border border-text-primary/20 rounded-lg hover:border-accent transition-colors">
+                  <div className="flex items-center justify-center gap-2 px-4 py-3 bg-bg-primary border border-border rounded-lg hover:border-accent transition-colors">
                     {uploadingLogoDark ? (
                       <span className="text-text-secondary font-body">Uploading...</span>
                     ) : (
@@ -353,20 +363,16 @@ export const GeneralSettingsPage = () => {
               </label>
               <div className="flex items-center gap-4">
                 {favicon && (
-                  <div className="w-16 h-16 bg-bg-primary border border-text-primary/10 rounded-lg flex items-center justify-center overflow-hidden p-1">
+                  <div className="w-16 h-16 bg-bg-primary border border-border rounded-lg flex items-center justify-center overflow-hidden p-1">
                     <img
-                      src={`${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${favicon}/preview?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}&width=64&height=64`}
+                      src={`${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${favicon}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`}
                       alt="Favicon"
                       className="max-w-full max-h-full object-contain"
-                      onError={(e) => {
-                        // Fallback to view endpoint if preview fails (for SVGs/ICO)
-                        e.target.src = `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${favicon}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`;
-                      }}
                     />
                   </div>
                 )}
                 <label className="flex-1 cursor-pointer">
-                  <div className="flex items-center justify-center gap-2 px-4 py-3 bg-bg-primary border border-text-primary/20 rounded-lg hover:border-accent transition-colors">
+                  <div className="flex items-center justify-center gap-2 px-4 py-3 bg-bg-primary border border-border rounded-lg hover:border-accent transition-colors">
                     {uploadingFavicon ? (
                       <span className="text-text-secondary font-body">Uploading...</span>
                     ) : (
@@ -395,7 +401,7 @@ export const GeneralSettingsPage = () => {
           </div>
 
           {/* General Information Section */}
-          <div className="bg-bg-secondary border border-text-primary/10 rounded-lg p-6">
+          <div className="bg-bg-secondary border border-border rounded-lg p-6">
             <h2 className="text-xl font-heading font-bold text-text-primary mb-6">
               General Information
             </h2>
@@ -411,7 +417,7 @@ export const GeneralSettingsPage = () => {
                 value={taxId}
                 onChange={(e) => setTaxId(e.target.value)}
                 placeholder="123456789"
-                className="w-full px-4 py-2 bg-bg-primary border border-text-primary/20 rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -425,7 +431,7 @@ export const GeneralSettingsPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="info@tbp.al"
-                className="w-full px-4 py-2 bg-bg-primary border border-text-primary/20 rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -439,7 +445,7 @@ export const GeneralSettingsPage = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+355 XX XXX XXXX"
-                className="w-full px-4 py-2 bg-bg-primary border border-text-primary/20 rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -453,7 +459,7 @@ export const GeneralSettingsPage = () => {
                 value={addressStreet}
                 onChange={(e) => setAddressStreet(e.target.value)}
                 placeholder="Rruga Dëshmorët e 4 Shkurtit"
-                className="w-full px-4 py-2 bg-bg-primary border border-text-primary/20 rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -467,7 +473,7 @@ export const GeneralSettingsPage = () => {
                 value={addressCity}
                 onChange={(e) => setAddressCity(e.target.value)}
                 placeholder="Tirana"
-                className="w-full px-4 py-2 bg-bg-primary border border-text-primary/20 rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -481,7 +487,7 @@ export const GeneralSettingsPage = () => {
                 value={addressCountry}
                 onChange={(e) => setAddressCountry(e.target.value)}
                 placeholder="Albania"
-                className="w-full px-4 py-2 bg-bg-primary border border-text-primary/20 rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -495,9 +501,124 @@ export const GeneralSettingsPage = () => {
                 value={addressZip}
                 onChange={(e) => setAddressZip(e.target.value)}
                 placeholder="1001"
-                className="w-full px-4 py-2 bg-bg-primary border border-text-primary/20 rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary font-body focus:outline-none focus:border-accent"
               />
             </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Maintenance Mode Section - Full Width */}
+        <div className="bg-bg-secondary border border-border rounded-lg p-6">
+          <h2 className="text-xl font-heading font-bold text-text-primary mb-6">
+            Maintenance Mode
+          </h2>
+
+          <div className="space-y-6">
+            {/* Enable/Disable Toggle */}
+            <div className="flex items-center gap-4">
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={maintenanceEnabled}
+                  onChange={(e) => setMaintenanceEnabled(e.target.checked)}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
+              </label>
+              <div>
+                <p className="text-sm font-body font-bold text-text-primary">
+                  {maintenanceEnabled ? 'Maintenance Mode Enabled' : 'Maintenance Mode Disabled'}
+                </p>
+                <p className="text-xs text-text-secondary font-body">
+                  {maintenanceEnabled
+                    ? 'Your website is currently in maintenance mode. Only admin pages are accessible.'
+                    : 'Enable this to show a maintenance page to visitors while keeping admin access.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Coming Soon Message */}
+            <div>
+              <label className="block text-sm font-body font-bold text-text-primary mb-2">
+                Coming Soon / Maintenance Message
+              </label>
+              <textarea
+                value={maintenanceMessage}
+                onChange={(e) => setMaintenanceMessage(e.target.value)}
+                rows={4}
+                placeholder="We're currently working on something amazing! We'll be back soon..."
+                className="w-full px-4 py-2 bg-bg-primary border border-border rounded-lg text-text-primary placeholder:text-text-secondary font-body focus:outline-none focus:border-accent resize-none"
+              />
+              <p className="text-xs text-text-secondary font-body mt-1">
+                This message will be displayed to visitors during maintenance mode
+              </p>
+            </div>
+
+            {/* Contact Options Repeater */}
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <label className="block text-sm font-body font-bold text-text-primary">
+                  Contact Options
+                </label>
+                <button
+                  type="button"
+                  onClick={addContact}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent text-white font-body text-sm rounded-lg hover:opacity-90 transition-opacity"
+                >
+                  <PlusIcon className="w-4 h-4" />
+                  Add Contact
+                </button>
+              </div>
+
+              {maintenanceContacts.length === 0 ? (
+                <div className="text-center py-8 bg-bg-primary border border-dashed border-border rounded-lg">
+                  <p className="text-text-secondary font-body text-sm">
+                    No contact options added. Click "Add Contact" to add email, phone, or other contact methods.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {maintenanceContacts.map((contact, index) => (
+                    <div key={index} className="flex gap-3 items-start bg-bg-primary border border-border rounded-lg p-4">
+                      <div className="flex-1 grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-xs font-body font-medium text-text-secondary mb-1">
+                            Label (e.g., Email, Phone)
+                          </label>
+                          <input
+                            type="text"
+                            value={contact.label}
+                            onChange={(e) => updateContact(index, 'label', e.target.value)}
+                            placeholder="Email"
+                            className="w-full px-3 py-2 bg-bg-secondary border border-border rounded text-text-primary font-body text-sm focus:outline-none focus:border-accent"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-body font-medium text-text-secondary mb-1">
+                            Value (e.g., contact@example.com)
+                          </label>
+                          <input
+                            type="text"
+                            value={contact.value}
+                            onChange={(e) => updateContact(index, 'value', e.target.value)}
+                            placeholder="info@tbp.al"
+                            className="w-full px-3 py-2 bg-bg-secondary border border-border rounded text-text-primary font-body text-sm focus:outline-none focus:border-accent"
+                          />
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeContact(index)}
+                        className="p-2 text-red-500 hover:bg-red-500/10 rounded transition-colors mt-5"
+                        title="Remove"
+                      >
+                        <TrashIcon className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

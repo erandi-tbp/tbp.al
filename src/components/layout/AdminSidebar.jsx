@@ -11,10 +11,10 @@ import {
   DocumentIcon,
   MagnifyingGlassIcon,
   ArrowRightOnRectangleIcon,
-  ChevronDownIcon,
   ChevronRightIcon,
   WrenchScrewdriverIcon,
-  FolderOpenIcon
+  FolderOpenIcon,
+  PhotoIcon
 } from '@heroicons/react/24/outline';
 
 export const AdminSidebar = () => {
@@ -99,6 +99,11 @@ export const AdminSidebar = () => {
           ]
         },
         {
+          path: '/admin/media-library',
+          label: 'Media Library',
+          Icon: PhotoIcon
+        },
+        {
           path: '/admin/seo',
           label: 'SEO',
           Icon: MagnifyingGlassIcon
@@ -113,9 +118,9 @@ export const AdminSidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-bg-secondary border-r border-text-primary/10 flex flex-col">
+    <aside className="w-72 bg-bg-secondary border-r border-border flex flex-col fixed left-0 top-0 bottom-0 z-30">
       {/* Logo */}
-      <div className="p-6 border-b border-text-primary/10">
+      <div className="p-6 border-b border-border">
         {getLogoUrl(isDark) ? (
           <img
             src={getLogoUrl(isDark)}
@@ -149,7 +154,6 @@ export const AdminSidebar = () => {
             // Parent item with children (collapsible)
             if (item.children) {
               const isOpen = openMenus[item.key];
-              const ChevronIcon = isOpen ? ChevronDownIcon : ChevronRightIcon;
 
               // Check if any nested child is active
               const isAnyChildActive = item.children.some(child => {
@@ -180,19 +184,26 @@ export const AdminSidebar = () => {
                       <Icon className="w-5 h-5" />
                       <span>{item.label}</span>
                     </div>
-                    <ChevronIcon className="w-4 h-4" />
+                    <ChevronRightIcon
+                      className={`w-4 h-4 transition-transform duration-300 ${
+                        isOpen ? 'rotate-90' : 'rotate-0'
+                      }`}
+                    />
                   </button>
 
                   {/* Children (Level 2) */}
-                  {isOpen && (
-                    <ul className="ml-4 mt-1 space-y-1">
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <ul className="ml-2 mt-1 space-y-1">
                       {item.children.map((child) => {
                         const ChildIcon = child.Icon;
 
                         // Level 2 with Level 3 children
                         if (child.children) {
                           const isChildOpen = openMenus[child.key];
-                          const ChildChevronIcon = isChildOpen ? ChevronDownIcon : ChevronRightIcon;
                           const isAnyGrandchildActive = child.children.some(nested =>
                             location.pathname.startsWith(nested.path)
                           );
@@ -212,31 +223,48 @@ export const AdminSidebar = () => {
                                   {ChildIcon && <ChildIcon className="w-4 h-4" />}
                                   <span>{child.label}</span>
                                 </div>
-                                <ChildChevronIcon className="w-3 h-3" />
+                                <ChevronRightIcon
+                                  className={`w-3 h-3 transition-transform duration-300 ${
+                                    isChildOpen ? 'rotate-90' : 'rotate-0'
+                                  }`}
+                                />
                               </button>
 
                               {/* Level 3 Children */}
-                              {isChildOpen && (
-                                <ul className="ml-6 mt-1 space-y-1">
-                                  {child.children.map((nested) => (
-                                    <li key={nested.path}>
-                                      <NavLink
-                                        to={nested.path}
-                                        className={({ isActive }) =>
-                                          `flex items-center gap-2 px-3 py-2 rounded-lg font-body transition-colors ${
-                                            isActive
-                                              ? 'bg-accent text-white font-bold'
-                                              : 'text-text-secondary hover:bg-bg-primary hover:text-text-primary'
-                                          }`
-                                        }
-                                      >
-                                        <span className="w-1 h-1 rounded-full bg-current"></span>
-                                        <span>{nested.label}</span>
-                                      </NavLink>
-                                    </li>
-                                  ))}
+                              <div
+                                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                                  isChildOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                                }`}
+                              >
+                                <ul className="ml-3 mt-1 space-y-1">
+                                  {child.children.map((nested) => {
+                                    // Check if this exact path is active (exact match)
+                                    const isExactActive = location.pathname === nested.path;
+                                    // Check if we're on a view/edit page of this entity
+                                    const isEntityActive = !nested.path.endsWith('/new') &&
+                                      location.pathname.startsWith(nested.path) &&
+                                      location.pathname !== nested.path;
+
+                                    return (
+                                      <li key={nested.path}>
+                                        <NavLink
+                                          to={nested.path}
+                                          className={({ isActive }) =>
+                                            `flex items-center gap-2 px-3 py-2 rounded-lg font-body transition-colors ${
+                                              isActive || isEntityActive
+                                                ? 'bg-accent text-white font-bold'
+                                                : 'text-text-secondary hover:bg-bg-primary hover:text-text-primary'
+                                            }`
+                                          }
+                                        >
+                                          <span className="w-1 h-1 rounded-full bg-current"></span>
+                                          <span>{nested.label}</span>
+                                        </NavLink>
+                                      </li>
+                                    );
+                                  })}
                                 </ul>
-                              )}
+                              </div>
                             </li>
                           );
                         }
@@ -261,7 +289,7 @@ export const AdminSidebar = () => {
                         );
                       })}
                     </ul>
-                  )}
+                  </div>
                 </li>
               );
             }
@@ -289,8 +317,8 @@ export const AdminSidebar = () => {
       </nav>
 
       {/* User Info & Logout */}
-      <div className="p-4 border-t border-text-primary/10">
-        <div className="mb-3 pb-3 border-b border-text-primary/10">
+      <div className="p-4 border-t border-border">
+        <div className="mb-3 pb-3 border-b border-border">
           <p className="text-sm font-body font-bold text-text-primary truncate">
             {user?.name || user?.email}
           </p>

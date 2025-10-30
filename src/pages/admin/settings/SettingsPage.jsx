@@ -1,5 +1,5 @@
-import { usePageTitle } from '../../hooks/usePageTitle';
-import { SettingsCard } from '../../components/admin/SettingsCard';
+import { usePageTitle } from '../../../hooks/usePageTitle';
+import { SettingsCard } from '../../../components/admin/SettingsCard';
 import {
   Cog6ToothIcon,
   ShieldCheckIcon,

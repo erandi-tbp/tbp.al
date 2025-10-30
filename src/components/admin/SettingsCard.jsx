@@ -7,7 +7,7 @@ export const SettingsCard = ({ title, description, icon: Icon, path }) => {
   return (
     <button
       onClick={() => navigate(path)}
-      className="group relative bg-bg-secondary border border-text-primary/10 rounded-lg p-6 hover:border-accent transition-all hover:shadow-lg text-left"
+      className="group relative bg-bg-secondary border border-border rounded-lg p-6 hover:border-accent transition-all hover:shadow-lg text-left"
     >
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">

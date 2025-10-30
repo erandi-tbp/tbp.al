@@ -19,7 +19,7 @@ const ENTITY_CONFIGS = [
     Icon: FolderIcon,
     collection: 'serviceGroups',
     searchFields: ['name', 'description'],
-    getPath: (id) => `/admin/service-groups/edit/${id}`,
+    getPath: (id) => `/admin/service-groups/${id}`,
     displayField: 'name'
   },
   {
@@ -131,26 +131,32 @@ export const SearchBar = () => {
 
       setLoading(true);
       const allResults = {};
+      const searchLower = searchTerm.toLowerCase();
 
       try {
         await Promise.all(
           ENTITY_CONFIGS.map(async (config) => {
             try {
-              // Search across configured fields using OR queries
-              const queries = config.searchFields.map(field =>
-                Query.search(field, searchTerm)
-              );
-
+              // Fetch all documents (we'll filter client-side)
               const response = await databases.listDocuments(
-                import.meta.env.VITE_APPWRITE_DATABASE_ID || 'main',
+                import.meta.env.VITE_APPWRITE_DATABASE_ID,
                 config.collection,
-                queries
+                [Query.limit(100)] // Adjust limit as needed
               );
 
-              if (response.documents.length > 0) {
+              // Client-side filtering across all searchFields
+              const filteredItems = response.documents.filter(doc => {
+                return config.searchFields.some(field => {
+                  const value = doc[field];
+                  if (!value) return false;
+                  return value.toLowerCase().includes(searchLower);
+                });
+              });
+
+              if (filteredItems.length > 0) {
                 allResults[config.type] = {
                   config,
-                  items: response.documents
+                  items: filteredItems
                 };
               }
             } catch (error) {
@@ -217,13 +223,13 @@ export const SearchBar = () => {
       {/* Search Trigger */}
       <button
         onClick={() => setIsOpen(true)}
-        className="w-full flex items-center gap-3 px-4 py-2 bg-bg-secondary border border-text-primary/20 rounded-lg hover:border-accent transition-colors"
+        className="w-full flex items-center gap-3 px-4 py-2 bg-bg-secondary border border-border rounded-lg hover:border-accent transition-colors"
       >
         <MagnifyingGlassIcon className="w-5 h-5 text-text-secondary" />
         <span className="flex-1 text-left text-text-secondary font-body">
           Search...
         </span>
-        <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 bg-bg-primary rounded text-xs text-text-secondary font-body border border-text-primary/10">
+        <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 bg-bg-primary rounded text-xs text-text-secondary font-body border border-border">
           <span className="text-xs">⌘</span>K
         </kbd>
       </button>
@@ -233,10 +239,10 @@ export const SearchBar = () => {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-[10vh] px-4">
           <div
             ref={modalRef}
-            className="w-full max-w-2xl bg-bg-secondary rounded-lg shadow-2xl border border-text-primary/20 overflow-hidden"
+            className="w-full max-w-2xl bg-bg-secondary rounded-lg shadow-2xl border border-border overflow-hidden"
           >
             {/* Search Input */}
-            <div className="flex items-center gap-3 px-4 py-4 border-b border-text-primary/10">
+            <div className="flex items-center gap-3 px-4 py-4 border-b border-border">
               <MagnifyingGlassIcon className="w-5 h-5 text-text-secondary" />
               <input
                 ref={inputRef}

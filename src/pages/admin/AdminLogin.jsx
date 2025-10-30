@@ -84,7 +84,7 @@ export const AdminLogin = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-bg-primary border border-text-primary/20 text-text-primary font-body focus:outline-none focus:border-accent transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-bg-primary border border-border text-text-primary font-body focus:outline-none focus:border-accent transition-colors"
                 placeholder="admin@tbp.al"
               />
             </div>
@@ -103,7 +103,7 @@ export const AdminLogin = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-bg-primary border border-text-primary/20 text-text-primary font-body focus:outline-none focus:border-accent transition-colors"
+                className="w-full px-4 py-3 rounded-lg bg-bg-primary border border-border text-text-primary font-body focus:outline-none focus:border-accent transition-colors"
                 placeholder="••••••••"
               />
             </div>
