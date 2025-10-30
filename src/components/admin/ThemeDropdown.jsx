@@ -9,18 +9,9 @@ import {
 } from '@heroicons/react/24/outline';
 
 export const ThemeDropdown = () => {
-  const { isDark, toggleTheme } = useTheme();
+  const { themeMode, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [themeMode, setThemeMode] = useState('system'); // 'light', 'dark', 'system'
   const dropdownRef = useRef(null);
-
-  // Load saved theme mode from localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem('themeMode');
-    if (saved) {
-      setThemeMode(saved);
-    }
-  }, []);
 
   // Click outside to close
   useEffect(() => {
@@ -37,20 +28,7 @@ export const ThemeDropdown = () => {
   }, [isOpen]);
 
   const handleThemeChange = (mode) => {
-    setThemeMode(mode);
-    localStorage.setItem('themeMode', mode);
-
-    if (mode === 'system') {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if ((prefersDark && !isDark) || (!prefersDark && isDark)) {
-        toggleTheme();
-      }
-    } else if (mode === 'dark' && !isDark) {
-      toggleTheme();
-    } else if (mode === 'light' && isDark) {
-      toggleTheme();
-    }
-
+    setTheme(mode);
     setIsOpen(false);
   };
 
