@@ -12,7 +12,6 @@ import {
   PlusIcon,
   MagnifyingGlassIcon,
   CogIcon,
-  RectangleStackIcon,
   PhotoIcon
 } from '@heroicons/react/24/outline';
 
@@ -25,7 +24,6 @@ export const AdminDashboard = () => {
     { label: 'Projects', count: 0, Icon: BriefcaseIcon, color: 'bg-green-500' },
     { label: 'Case Studies', count: 0, Icon: DocumentTextIcon, color: 'bg-purple-500' },
     { label: 'Testimonials', count: 0, Icon: StarIcon, color: 'bg-yellow-500' },
-    { label: 'Pages', count: 0, Icon: RectangleStackIcon, color: 'bg-pink-500' },
     { label: 'Media Files', count: 0, Icon: PhotoIcon, color: 'bg-orange-500' }
   ]);
   const [loading, setLoading] = useState(true);
@@ -61,7 +59,6 @@ export const AdminDashboard = () => {
         projectsCount,
         caseStudiesCount,
         testimonialsCount,
-        pagesCount,
         mediaCount
       ] = await Promise.all([
         getCount('serviceGroups'),
@@ -69,7 +66,6 @@ export const AdminDashboard = () => {
         getCount('projects'),
         getCount('caseStudies'),
         getCount('testimonials'),
-        getCount('pages'),
         getCount('media')
       ]);
 
@@ -79,7 +75,6 @@ export const AdminDashboard = () => {
         { label: 'Projects', count: projectsCount, Icon: BriefcaseIcon, color: 'bg-green-500' },
         { label: 'Case Studies', count: caseStudiesCount, Icon: DocumentTextIcon, color: 'bg-purple-500' },
         { label: 'Testimonials', count: testimonialsCount, Icon: StarIcon, color: 'bg-yellow-500' },
-        { label: 'Pages', count: pagesCount, Icon: RectangleStackIcon, color: 'bg-pink-500' },
         { label: 'Media Files', count: mediaCount, Icon: PhotoIcon, color: 'bg-orange-500' }
       ]);
     } catch (error) {
@@ -112,7 +107,7 @@ export const AdminDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
         {loading ? (
           // Loading skeleton
-          Array.from({ length: 7 }).map((_, idx) => (
+          Array.from({ length: 6 }).map((_, idx) => (
             <div
               key={idx}
               className="bg-bg-secondary rounded-lg p-6 border border-border animate-pulse"
