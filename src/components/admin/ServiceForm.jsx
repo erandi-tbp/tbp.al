@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { appwriteConfig } from '../../config/appwrite';
 import { databases } from '../../lib/appwrite';
 import { Query } from 'appwrite';
 import { PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -38,7 +39,7 @@ export const ServiceForm = ({ initialData, onSubmit, submitLabel = 'Save' }) => 
   const loadServiceGroups = async () => {
     try {
       const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'serviceGroups',
         [Query.orderAsc('name')]
       );
@@ -50,8 +51,8 @@ export const ServiceForm = ({ initialData, onSubmit, submitLabel = 'Save' }) => 
 
   function getFileUrl(fileId) {
     if (!fileId) return null;
-    const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
-    return `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${fileId}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`;
+    const bucketId = appwriteConfig.bucketSettings;
+    return `${appwriteConfig.endpoint}/storage/buckets/${bucketId}/files/${fileId}/view?project=${appwriteConfig.projectId}`;
   }
 
   const generateSlug = (text) => {

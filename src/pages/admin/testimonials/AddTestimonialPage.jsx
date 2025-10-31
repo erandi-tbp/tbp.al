@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { databases } from '../../../lib/appwrite';
+import { appwriteConfig } from '../../../config/appwrite';
 import { ID } from 'appwrite';
 import { TestimonialForm } from '../../../components/admin/TestimonialForm';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
-const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+const DATABASE_ID = appwriteConfig.databaseId;
 
 export const AddTestimonialPage = () => {
   const navigate = useNavigate();

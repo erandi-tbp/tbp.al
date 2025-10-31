@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { usePageTitle } from '../../../hooks/usePageTitle';
 import { databases } from '../../../lib/appwrite';
+import { appwriteConfig } from '../../../config/appwrite';
 import { Query } from 'appwrite';
 import { ProjectForm } from '../../../components/admin/ProjectForm';
 import { DataTable } from '../../../components/DataTable/DataTable';
@@ -26,7 +27,7 @@ export const EditProjectPage = () => {
     try {
       setLoading(true);
       const response = await databases.getDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'projects',
         id
       );
@@ -59,7 +60,7 @@ export const EditProjectPage = () => {
 
       // Get all case studies
       const caseStudiesResponse = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'caseStudies',
         [Query.orderDesc('$createdAt')]
       );
@@ -95,7 +96,7 @@ export const EditProjectPage = () => {
 
       // Update main entity document
       await databases.updateDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'projects',
         id,
         entityData

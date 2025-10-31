@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { usePageTitle } from '../../../hooks/usePageTitle';
 import { databases } from '../../../lib/appwrite';
+import { appwriteConfig } from '../../../config/appwrite';
 import { Query } from 'appwrite';
 import { DataTable } from '../../../components/DataTable';
 import { ArrowLeftIcon, PencilIcon, TrashIcon, EyeIcon } from '@heroicons/react/24/outline';
@@ -25,7 +26,7 @@ export const ViewProjectPage = () => {
     try {
       setLoading(true);
       const response = await databases.getDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'projects',
         id
       );
@@ -57,7 +58,7 @@ export const ViewProjectPage = () => {
 
       // Get all case studies
       const caseStudiesResponse = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'caseStudies',
         [Query.orderDesc('$createdAt')]
       );
@@ -93,7 +94,7 @@ export const ViewProjectPage = () => {
 
     try {
       await databases.deleteDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'projects',
         id
       );
@@ -106,8 +107,8 @@ export const ViewProjectPage = () => {
 
   const getImageUrl = (fileId) => {
     if (!fileId) return null;
-    const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
-    return `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${fileId}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`;
+    const bucketId = appwriteConfig.bucketSettings;
+    return `${appwriteConfig.endpoint}/storage/buckets/${bucketId}/files/${fileId}/view?project=${appwriteConfig.projectId}`;
   };
 
   if (loading) {

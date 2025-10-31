@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { appwriteConfig } from '../../../config/appwrite';
 import { useParams, useNavigate } from 'react-router-dom';
 import { databases } from '../../../lib/appwrite';
 import { CaseStudyForm } from '../../../components/admin/CaseStudyForm';
 import { META_COLLECTIONS, getAllMeta, setMeta } from '../../../helpers/metaHelper';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
-const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+const DATABASE_ID = appwriteConfig.databaseId;
 
 export const EditCaseStudyPage = () => {
   const { id } = useParams();

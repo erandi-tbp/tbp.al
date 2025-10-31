@@ -1,6 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { usePageTitle } from '../../../hooks/usePageTitle';
 import { databases } from '../../../lib/appwrite';
+import { appwriteConfig } from '../../../config/appwrite';
 import { ID } from 'appwrite';
 import { ProjectForm } from '../../../components/admin/ProjectForm';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
@@ -18,7 +19,7 @@ export const AddProjectPage = () => {
       // Create main entity document
       const newDocId = ID.unique();
       await databases.createDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'projects',
         newDocId,
         entityData

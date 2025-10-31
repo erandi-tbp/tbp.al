@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { appwriteConfig } from '../../../config/appwrite';
 import { useParams, useNavigate } from 'react-router-dom';
 import { databases } from '../../../lib/appwrite';
 import { PageForm } from '../../../components/admin/PageForm';
 import { META_COLLECTIONS, getAllMeta, setMeta } from '../../../helpers/metaHelper';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
-const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+const DATABASE_ID = appwriteConfig.databaseId;
 
 export const EditPagePage = () => {
   const { id } = useParams();

@@ -11,6 +11,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { getBlockById } from '../../blocks/blockRegistry';
 import { MediaPicker } from '../../common/MediaPicker';
+import { appwriteConfig } from '../../../config/appwrite';
 
 /**
  * BlockItem - Renders a single content block with its form fields
@@ -20,7 +21,7 @@ export const BlockItem = ({ block, index, totalBlocks, onChange, onMoveUp, onMov
   const [mediaPickerOpen, setMediaPickerOpen] = useState(null); // Stores field name when picker is open
   const blockDef = getBlockById(block.type);
 
-  const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
+  const bucketId = appwriteConfig.bucketSettings;
 
   if (!blockDef) {
     return (
@@ -147,7 +148,7 @@ export const BlockItem = ({ block, index, totalBlocks, onChange, onMoveUp, onMov
             {value ? (
               <div className="relative mb-2">
                 <img
-                  src={`${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${value}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`}
+                  src={`${appwriteConfig.endpoint}/storage/buckets/${bucketId}/files/${value}/view?project=${appwriteConfig.projectId}`}
                   alt="Selected"
                   className="w-full h-48 object-cover rounded-lg border border-border"
                 />
@@ -184,7 +185,7 @@ export const BlockItem = ({ block, index, totalBlocks, onChange, onMoveUp, onMov
                 {galleryImages.map((imageId, idx) => (
                   <div key={idx} className="relative">
                     <img
-                      src={`${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${imageId.trim()}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`}
+                      src={`${appwriteConfig.endpoint}/storage/buckets/${bucketId}/files/${imageId.trim()}/view?project=${appwriteConfig.projectId}`}
                       alt={`Gallery ${idx + 1}`}
                       className="w-full h-24 object-cover rounded-lg border border-border"
                     />

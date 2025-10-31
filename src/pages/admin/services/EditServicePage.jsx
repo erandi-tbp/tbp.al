@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { appwriteConfig } from '../../../config/appwrite';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { usePageTitle } from '../../../hooks/usePageTitle';
 import { databases } from '../../../lib/appwrite';
@@ -21,7 +22,7 @@ export const EditServicePage = () => {
     try {
       setLoading(true);
       const response = await databases.getDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'services',
         id
       );
@@ -56,7 +57,7 @@ export const EditServicePage = () => {
 
       // Update main entity document
       await databases.updateDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'services',
         id,
         entityData

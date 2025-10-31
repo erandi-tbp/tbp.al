@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { appwriteConfig } from '../../../config/appwrite';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { usePageTitle } from '../../../hooks/usePageTitle';
 import { databases } from '../../../lib/appwrite';
@@ -26,7 +27,7 @@ export const EditServiceGroupPage = () => {
     try {
       setLoading(true);
       const response = await databases.getDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'serviceGroups',
         id
       );
@@ -59,7 +60,7 @@ export const EditServiceGroupPage = () => {
 
       // Get all services
       const servicesResponse = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'services',
         [Query.orderAsc('name')]
       );
@@ -95,7 +96,7 @@ export const EditServiceGroupPage = () => {
 
       // Update main entity document (without SEO fields and content blocks)
       await databases.updateDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'serviceGroups',
         id,
         entityData

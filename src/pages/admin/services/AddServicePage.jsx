@@ -1,4 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom';
+import { appwriteConfig } from '../../../config/appwrite';
 import { usePageTitle } from '../../../hooks/usePageTitle';
 import { databases } from '../../../lib/appwrite';
 import { ID } from 'appwrite';
@@ -18,7 +19,7 @@ export const AddServicePage = () => {
       // Create main entity document
       const newDocId = ID.unique();
       await databases.createDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'services',
         newDocId,
         entityData

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { databases } from '../../../lib/appwrite';
+import { appwriteConfig } from '../../../config/appwrite';
 import { Query } from 'appwrite';
 import { DataTable } from '../../../components/DataTable/DataTable';
 import { PlusIcon, StarIcon } from '@heroicons/react/24/outline';
 
-const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+const DATABASE_ID = appwriteConfig.databaseId;
 
 export const TestimonialsListPage = () => {
   const navigate = useNavigate();

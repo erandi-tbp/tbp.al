@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { databases } from '../../lib/appwrite';
+import { appwriteConfig } from '../../config/appwrite';
 import {
   FolderIcon,
   BriefcaseIcon,
@@ -35,7 +36,7 @@ export const AdminDashboard = () => {
   const loadStats = async () => {
     try {
       setLoading(true);
-      const databaseId = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+      const databaseId = appwriteConfig.databaseId;
 
       // Load all counts in parallel
       const [

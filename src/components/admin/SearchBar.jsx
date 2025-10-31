@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { appwriteConfig } from '../../config/appwrite';
 import { useNavigate } from 'react-router-dom';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {
@@ -139,7 +140,7 @@ export const SearchBar = () => {
             try {
               // Fetch all documents (we'll filter client-side)
               const response = await databases.listDocuments(
-                import.meta.env.VITE_APPWRITE_DATABASE_ID,
+                appwriteConfig.databaseId,
                 config.collection,
                 [Query.limit(100)] // Adjust limit as needed
               );

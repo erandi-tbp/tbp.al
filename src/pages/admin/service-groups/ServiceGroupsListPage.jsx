@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { appwriteConfig } from '../../../config/appwrite';
 import { Link, useNavigate } from 'react-router-dom';
 import { usePageTitle } from '../../../hooks/usePageTitle';
 import { databases } from '../../../lib/appwrite';
@@ -27,7 +28,7 @@ export const ServiceGroupsListPage = () => {
     try {
       setLoading(true);
       const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'serviceGroups',
         [Query.orderDesc('$createdAt')]
       );
@@ -46,7 +47,7 @@ export const ServiceGroupsListPage = () => {
 
     try {
       await databases.deleteDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        appwriteConfig.databaseId,
         'serviceGroups',
         id
       );
@@ -66,7 +67,7 @@ export const ServiceGroupsListPage = () => {
       await Promise.all(
         selectedIds.map(id =>
           databases.deleteDocument(
-            import.meta.env.VITE_APPWRITE_DATABASE_ID,
+            appwriteConfig.databaseId,
             'serviceGroups',
             id
           )
@@ -127,8 +128,8 @@ export const ServiceGroupsListPage = () => {
   // Helper function to get image URL
   const getImageUrl = (fileId) => {
     if (!fileId) return null;
-    const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
-    return `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${fileId}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`;
+    const bucketId = appwriteConfig.bucketSettings;
+    return `${appwriteConfig.endpoint}/storage/buckets/${bucketId}/files/${fileId}/view?project=${appwriteConfig.projectId}`;
   };
 
   // Define columns with featured image and name pinned to left

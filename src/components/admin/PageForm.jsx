@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { TagInput } from '../common/TagInput';
 import { MediaPicker } from '../common/MediaPicker';
+import { appwriteConfig } from '../../config/appwrite';
 
 export const PageForm = ({ initialData, onSubmit, submitLabel = 'Save' }) => {
   const [formData, setFormData] = useState({
@@ -25,8 +26,8 @@ export const PageForm = ({ initialData, onSubmit, submitLabel = 'Save' }) => {
 
   function getFileUrl(fileId) {
     if (!fileId) return null;
-    const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_SETTINGS || '69037a5a0013327b7dd0';
-    return `${import.meta.env.VITE_APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${fileId}/view?project=${import.meta.env.VITE_APPWRITE_PROJECT_ID}`;
+    const bucketId = appwriteConfig.bucketSettings;
+    return `${appwriteConfig.endpoint}/storage/buckets/${bucketId}/files/${fileId}/view?project=${appwriteConfig.projectId}`;
   }
 
   const generateSlug = (text) => {
