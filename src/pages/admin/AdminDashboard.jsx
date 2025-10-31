@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { databases } from '../../lib/appwrite';
+import { Query } from 'appwrite';
 import { appwriteConfig } from '../../config/appwrite';
 import {
   FolderIcon,
@@ -38,6 +39,21 @@ export const AdminDashboard = () => {
       setLoading(true);
       const databaseId = appwriteConfig.databaseId;
 
+      // Helper function to get count for a collection
+      const getCount = async (collectionName) => {
+        try {
+          const response = await databases.listDocuments(
+            databaseId,
+            collectionName,
+            [Query.limit(1)]
+          );
+          return response.total || 0;
+        } catch (error) {
+          console.error(`Error loading ${collectionName} count:`, error);
+          return 0;
+        }
+      };
+
       // Load all counts in parallel
       const [
         serviceGroupsCount,
@@ -48,13 +64,13 @@ export const AdminDashboard = () => {
         pagesCount,
         mediaCount
       ] = await Promise.all([
-        databases.listDocuments(databaseId, 'serviceGroups').then(res => res.total),
-        databases.listDocuments(databaseId, 'services').then(res => res.total),
-        databases.listDocuments(databaseId, 'projects').then(res => res.total),
-        databases.listDocuments(databaseId, 'caseStudies').then(res => res.total),
-        databases.listDocuments(databaseId, 'testimonials').then(res => res.total),
-        databases.listDocuments(databaseId, 'pages').then(res => res.total),
-        databases.listDocuments(databaseId, 'media').then(res => res.total)
+        getCount('serviceGroups'),
+        getCount('services'),
+        getCount('projects'),
+        getCount('caseStudies'),
+        getCount('testimonials'),
+        getCount('pages'),
+        getCount('media')
       ]);
 
       setStats([
